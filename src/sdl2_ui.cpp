@@ -483,7 +483,7 @@ void Sdl2Ui::setClipboardText(std::string text) {
 }
 
 void Sdl2Ui::SetTitle(const std::string &title) {	
-#elif __linux__
+#ifdef __linux__
 	if (Player::IsCJK()){
 		iconv_t cd;
 		
