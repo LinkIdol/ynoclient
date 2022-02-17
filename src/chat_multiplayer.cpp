@@ -183,6 +183,8 @@ namespace {
 			std::string connLabel = "";
 			if (Player::IsCP936()) {
 				connLabel = (status)?"已连接":"未连接";
+			} else if(Player::IsBig5()){
+				connLabel = (status)?"已連接":"未連接";
 			} else {
 				connLabel = (status)?"Connected":"Disconnected";
 			}
@@ -196,6 +198,8 @@ namespace {
 			std::string roomLabel = "";
 			if (Player::IsCP936()) {
 				roomLabel = "房间 #"+std::to_string(roomID);
+			} else if (Player::IsBig5()) {
+				roomLabel = "房間 #"+std::to_string(roomID);
 			} else {
 				roomLabel = "Room #"+std::to_string(roomID);
 			}
@@ -680,10 +684,22 @@ namespace {
 					chatBox->showTypeLabel("Trip");
 					setTypeMaxChars(MAXCHARSINPUT_TRIPCODE);
 					// append tripcode instructions
-					addLogEntry("• Set a tripcode.", "", "", CV_LOCAL);
-					addLogEntry("• Leave empty for random.", "", "", CV_LOCAL);
-					addLogEntry("• Use it to authenticate", "", "", CV_LOCAL);
-					addLogEntry("  yourself.", "", "", CV_LOCAL);
+					if (Player::IsCP936()) {
+						addLogEntry("• 设置行程码。", "", "", CV_LOCAL);
+						addLogEntry("• 若不设置，将由系统", "", "", CV_LOCAL);
+						addLogEntry("• 分配随机行程码。", "", "", CV_LOCAL);
+						addLogEntry("• 用于身份验证。", "", "", CV_LOCAL);
+					} else if (Player::IsBig5()) {
+						addLogEntry("• 設置行程碼。", "", "", CV_LOCAL);
+						addLogEntry("• 若不設置，將由系統", "", "", CV_LOCAL);
+						addLogEntry("• 分配隨機行程碼。", "", "", CV_LOCAL);
+						addLogEntry("• 用於身份驗證。", "", "", CV_LOCAL);
+					} else {
+						addLogEntry("• Set a tripcode.", "", "", CV_LOCAL);
+						addLogEntry("• Leave empty for random.", "", "", CV_LOCAL);
+						addLogEntry("• Use it to authenticate", "", "", CV_LOCAL);
+						addLogEntry("  yourself.", "", "", CV_LOCAL);
+					}
 				}
 			} else { //inputting trip
 				// send
