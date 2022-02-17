@@ -487,18 +487,20 @@ void Sdl2Ui::SetTitle(const std::string &title) {
 	if (Player::IsCJK()){
 		iconv_t cd;
 		
-		int sz = title.size();
+		int sz = title.size()*2;
 		char *in = new char[sz];
 		char *out = new char[sz];
+		memset(in, 0, sizeof(in));
+		memset(out, 0, sizeof(out));
 
 		in = title.c_ctr();
 		iconv(iconv_open("utf8", "gbk"), &in, &sz, &out, &sz);
-		SDL_SetWindowTitle(sdl_window, out);
+		SDL_SetWindowTitle(sdl_window, "abcabc");
 		return;
 	}
 #endif		
 	//std::string dst = cstr;
-	SDL_SetWindowTitle(sdl_window, title.c_str());
+	SDL_SetWindowTitle(sdl_window, "ttt");
 }
 
 bool Sdl2Ui::ShowCursor(bool flag) {
