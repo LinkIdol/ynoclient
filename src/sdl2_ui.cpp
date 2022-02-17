@@ -494,7 +494,7 @@ void Sdl2Ui::SetTitle(const std::string &title) {
 		iconv(cd, pinout, &std::strlen(cstr), pinout, std::strlen(cstr));
 	}*/
 	//std::string dst = cstr;
-	SDL_SetWindowTitle(sdl_window, *utf8);
+	SDL_SetWindowTitle(sdl_window, title.c_str());
 }
 
 bool Sdl2Ui::ShowCursor(bool flag) {
