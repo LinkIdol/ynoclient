@@ -33,7 +33,6 @@
 #  include <SDL_system.h>
 #elif defined(EMSCRIPTEN)
 #  include <emscripten.h>
-#elif __linux__
 #  include <iconv.h>
 #endif
 #include "icon.h"
@@ -483,9 +482,9 @@ void Sdl2Ui::setClipboardText(std::string text) {
 }
 
 void Sdl2Ui::SetTitle(const std::string &title) {	
-#ifdef __linux__
+#ifdef defined(EMSCRIPTEN)
 	if (Player::IsCJK()){
-		iconv_t cd;
+		/*iconv_t cd;
 		
 		int sz = title.size()*2;
 		char *in = new char[sz];
@@ -494,8 +493,8 @@ void Sdl2Ui::SetTitle(const std::string &title) {
 		memset(out, 0, sizeof(out));
 
 		in = title.c_ctr();
-		iconv(iconv_open("utf8", "gbk"), &in, &sz, &out, &sz);
-		SDL_SetWindowTitle(sdl_window, "abcabc");
+		iconv(iconv_open("utf8", "gbk"), &in, &sz, &out, &sz);*/
+		SDL_SetWindowTitle(sdl_window, "abcabc 你好啊");
 		return;
 	}
 #endif		
