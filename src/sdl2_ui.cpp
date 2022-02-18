@@ -488,8 +488,6 @@ void Sdl2Ui::SetTitle(const std::string &title) {
 		int sz = title.size();
 		char *in = new char[sz];
 		char *out = new char[sz];
-		memset(in, 0, sizeof(in));
-		memset(out, 0, sizeof(out));
 
 		in = title.c_ctr();
 		iconv(iconv_open("utf8", "gbk"), &in, &sz, &out, &sz);
