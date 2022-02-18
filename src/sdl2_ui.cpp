@@ -482,7 +482,7 @@ void Sdl2Ui::setClipboardText(std::string text) {
 }
 
 void Sdl2Ui::SetTitle(const std::string &title) {	
-#ifdef defined(EMSCRIPTEN)
+#ifdef EMSCRIPTEN
 	if (Player::IsCJK()){
 		/*iconv_t cd;
 		
