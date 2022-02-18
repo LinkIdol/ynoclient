@@ -495,7 +495,7 @@ int GbkToUtf8(char *str_str, size_t src_len, char *dst_str, size_t dst_len)
 	if (iconv(cd, pin, &src_len, pout, &dst_len) == -1)
 		return -1;
 	iconv_close(cd);
-	*pout = '\0';
+	//*pout = '\0';
 
 	return 0;
 }
