@@ -481,17 +481,35 @@ void Sdl2Ui::setClipboardText(std::string text) {
 	SDL_SetClipboardText(text.c_str());
 }
 
+
+int GbkToUtf8(char *str_str, size_t src_len, char *dst_str, size_t dst_len)
+{
+	iconv_t cd;
+	char **pin = &str_str;
+	char **pout = &dst_str;
+
+	cd = iconv_open("utf8", "gbk");
+	if (cd == 0)
+		return -1;
+	memset(dst_str, 0, dst_len);
+	if (iconv(cd, pin, &src_len, pout, &dst_len) == -1)
+		return -1;
+	iconv_close(cd);
+	*pout = '\0';
+
+	return 0;
+}
+
 void Sdl2Ui::SetTitle(const std::string &title) {	
 #ifdef EMSCRIPTEN
 	if (Player::IsCJK()){
-		
-		int sz = title.size();
-		char *in = new char[sz];
-		char *out = new char[sz];
 
-		in = title.c_ctr();
-		iconv(iconv_open("utf8", "gbk"), &in, &sz, &out, &sz);
-		SDL_SetWindowTitle(sdl_window, out);
+		size_t title_length = title.length();
+		char *input_string = new char [title_length + 1];
+  		std::strcpy(input_string, title.c_str());
+		char *output_string = new char [title_length + 1];
+		GbkToUtf8(input_string, title_length, output_string, title_length)
+		SDL_SetWindowTitle(sdl_window, output_string);	
 		return;
 	}
 #endif		
