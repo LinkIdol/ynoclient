@@ -495,7 +495,7 @@ int GbkToUtf8(char *str_str, size_t src_len, char *dst_str, size_t dst_len)
 	if (iconv(cd, pin, &src_len, pout, &dst_len) == -1)
 		return -1;
 	iconv_close(cd);
-	//*pout = '\0';
+	//*pout = '\0';ls
 
 	return 0;
 }
@@ -508,7 +508,7 @@ void Sdl2Ui::SetTitle(const std::string &title) {
 		char *input_string = new char [title_length + 1];
   		std::strcpy(input_string, title.c_str());
 		char *output_string = new char [title_length + 1];
-		GbkToUtf8(input_string, title_length, output_string, title_length)
+		GbkToUtf8(input_string, title_length, output_string, title_length);
 		SDL_SetWindowTitle(sdl_window, output_string);	
 		return;
 	}
