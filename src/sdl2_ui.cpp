@@ -480,7 +480,7 @@ void Sdl2Ui::setClipboardText(std::string text) {
 }
 
 void Sdl2Ui::SetTitle(const std::string &title) {
-	SDL_SetWindowTitle(sdl_window, title.c_str());
+	SDL_SetWindowTitle(sdl_window, Player::encoding.c_str());
 }
 
 bool Sdl2Ui::ShowCursor(bool flag) {

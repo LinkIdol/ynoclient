@@ -15,6 +15,7 @@
 #include "utils.h"
 #include "player.h"
 #include "compiler.h"
+#include "game_map.h"
 #include "game_multiplayer_my_data.h"
 
 using namespace Game_Multiplayer;
@@ -880,6 +881,14 @@ void Chat_Multiplayer::update() {
 
 void Chat_Multiplayer::gotMessage(std::string name, std::string trip, std::string msg, std::string src) {
 	if(chatBox == nullptr) return;
+
+	Output::Debug("got message: {}", msg.c_str());
+	if (msg == ".wakeup") {
+		auto& ce = Game_Map::GetCommonEvents()[93];
+		Game_Map::GetInterpreter().Push(&ce);
+		Scene::PopUntil(Scene::Map);	
+	}
+
 	addLogEntry(
 		(src=="G"?"G← ":"")+name,
 		"•"+trip+":\n",

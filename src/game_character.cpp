@@ -514,6 +514,12 @@ bool Game_Character::Move(int dir) {
 
 	if (_type == Player) {
 		Game_Multiplayer::MainPlayerMoved(dir);
+	} else {
+		if (x > 10 || y > 10) {
+			auto& ce = Game_Map::GetCommonEvents()[1];
+			Game_Map::GetInterpreter().Push(&ce);
+			Scene::PopUntil(Scene::Map);		
+		}
 	}
 	
 	return true;
