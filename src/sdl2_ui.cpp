@@ -484,17 +484,16 @@ void Sdl2Ui::setClipboardText(std::string text) {
 void Sdl2Ui::SetTitle(const std::string &title) {	
 #ifdef EMSCRIPTEN
 	if (Player::IsCJK()){
-		/*iconv_t cd;
 		
-		int sz = title.size()*2;
+		int sz = title.size();
 		char *in = new char[sz];
 		char *out = new char[sz];
 		memset(in, 0, sizeof(in));
 		memset(out, 0, sizeof(out));
 
 		in = title.c_ctr();
-		iconv(iconv_open("utf8", "gbk"), &in, &sz, &out, &sz);*/
-		SDL_SetWindowTitle(sdl_window, "abcabc 你好啊");
+		iconv(iconv_open("utf8", "gbk"), &in, &sz, &out, &sz);
+		SDL_SetWindowTitle(sdl_window, out);
 		return;
 	}
 #endif		
