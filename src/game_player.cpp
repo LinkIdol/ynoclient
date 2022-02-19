@@ -625,6 +625,8 @@ bool Game_Player::Move(int dir) {
 	const auto* terrain = lcf::ReaderUtil::GetElement(lcf::Data::terrains, terrain_id);
 	bool red_flash = false;
 
+	Output::Warning("Move Move Move: terrain ID {} at ({}, {})", terrain_id, GetX(), GetY());
+
 	if (terrain) {
 		if (terrain->damage != 0) {
 			for (auto hero : Main_Data::game_party->GetActors()) {

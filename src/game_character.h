@@ -1115,9 +1115,9 @@ inline Game_Character::AnimType Game_Character::GetAnimationType() const {
 }
 
 inline void Game_Character::SetAnimationType(Game_Character::AnimType anim_type) {
-	//if (GetType() == Player) {
+	if (GetType() == Player) {
 		Output::Debug("!!! set animation type {}", int(anim_type));
-	//}
+	}
 	data()->animation_type = int(anim_type);
 	SetFacingLocked(IsDirectionFixedAnimationType(anim_type));
 }
