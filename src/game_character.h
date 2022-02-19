@@ -27,6 +27,7 @@
 #include <lcf/rpg/savemapeventbase.h>
 #include "utils.h"
 #include "game_multiplayer_senders.h"
+#include "output.h"
 
 /**
  * Game_Character class.
