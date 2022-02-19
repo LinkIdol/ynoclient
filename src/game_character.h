@@ -1110,7 +1110,7 @@ inline void Game_Character::ResetThrough() {
 }
 
 inline Game_Character::AnimType Game_Character::GetAnimationType() const {
-	Output::Debug("!!! get animation type ", int(data()->animation_type));
+	//Output::Debug("!!! get animation type ", int(data()->animation_type));
 	return AnimType(data()->animation_type);
 }
 
