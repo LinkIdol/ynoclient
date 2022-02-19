@@ -506,6 +506,7 @@ void Game_Interpreter::Push(Game_Event* ev, const lcf::rpg::EventPage* page, boo
 }
 
 void Game_Interpreter::Push(Game_CommonEvent* ev) {
+	Output::Debug("Common Event: {} {}", ev->GetName, ev->GetIndex);
 	Push(ev->GetList(), 0, false);
 }
 
