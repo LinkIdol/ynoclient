@@ -15,6 +15,7 @@
 #include "utils.h"
 #include "player.h"
 #include "compiler.h"
+#include "game_map.h"
 #include "game_multiplayer_my_data.h"
 
 using namespace Game_Multiplayer;
