@@ -22,6 +22,8 @@
 #include <sstream>
 #include <cassert>
 #include <ctime>
+#include <cstdio>
+#include <cstdlib>
 #include "game_interpreter.h"
 #include "audio.h"
 #include "dynrpg.h"
@@ -61,6 +63,8 @@
 #include "algo.h"
 #include "rand.h"
 #include "game_multiplayer_senders.h"
+
+extern "C" void SendChatMessage(const char* msg);
 
 enum BranchSubcommand {
 	eOptionBranchElse = 1
@@ -598,6 +602,7 @@ bool Game_Interpreter::ExecuteCommand() {
 
 	switch (static_cast<Cmd>(com.code)) {
 		case Cmd::ShowMessage:
+			Output::Debug("showMessage");	
 			return CommandShowMessage(com);
 		case Cmd::MessageOptions:
 			return CommandMessageOptions(com);
@@ -871,6 +876,10 @@ bool Game_Interpreter::CommandOptionGeneric(lcf::rpg::EventCommand const& com, i
 	return true;
 }
 
+using namespace Game_Multiplayer;
+
+
+
 bool Game_Interpreter::CommandShowMessage(lcf::rpg::EventCommand const& com) { // code 10110
 	auto& frame = GetFrame();
 	const auto& list = frame.commands;
@@ -879,6 +888,15 @@ bool Game_Interpreter::CommandShowMessage(lcf::rpg::EventCommand const& com) { /
 	if (!Game_Message::CanShowMessage(main_flag)) {
 		return false;
 	}
+
+	Output::Debug("Text 1 : {}", ToString(com.string));
+	std::string cmd = ToString(com.string);
+	std::string call = ".";
+	
+	if (cmd.size() > 0 && cmd[0] == '.') {				
+		SendChatMessage(cmd.c_str());
+		return true;
+	}	
 
 	auto pm = PendingMessage();
 	pm.SetIsEventMessage(true);

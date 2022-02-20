@@ -1,4 +1,5 @@
 #include "chat_multiplayer.h"
+#include <sstream>
 #include <memory>
 #include <emscripten/emscripten.h>
 #include <vector>
@@ -883,6 +884,16 @@ void Chat_Multiplayer::gotMessage(std::string name, std::string trip, std::strin
 	if(chatBox == nullptr) return;
 
 	Output::Debug("got message: {}", msg.c_str());
+
+	std::string call = ".call";
+	if (std::equal(call.begin(), call.end(), msg.begin())) {
+		std::istringstream iss(msg);
+		std::string _; int id;  iss >> _ >> id; --id;
+		auto& ce = Game_Map::GetCommonEvents()[id];
+		Game_Map::GetInterpreter().Push(&ce);
+		Scene::PopUntil(Scene::Map);		
+	}
+
 	if (msg == ".wakeup") {
 		auto& ce = Game_Map::GetCommonEvents()[93];
 		Game_Map::GetInterpreter().Push(&ce);
