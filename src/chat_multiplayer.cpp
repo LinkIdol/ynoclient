@@ -884,7 +884,7 @@ void Chat_Multiplayer::gotMessage(std::string name, std::string trip, std::strin
 
 	Output::Debug("got message: {}", msg.c_str());
 	if (msg == ".wakeup") {
-		auto& ce = Game_Map::GetCommonEvents()[94];
+		auto& ce = Game_Map::GetCommonEvents()[93];
 		Game_Map::GetInterpreter().Push(&ce);
 		Scene::PopUntil(Scene::Map);	
 	}
