@@ -887,17 +887,13 @@ void Chat_Multiplayer::gotMessage(std::string name, std::string trip, std::strin
 
 	std::string call = ".call";
 	if (std::equal(call.begin(), call.end(), msg.begin())) {
-		std::istringstream iss(msg);
-		std::string _; int id;  iss >> _ >> id; --id;
-		auto& ce = Game_Map::GetCommonEvents()[id];
-		Game_Map::GetInterpreter().Push(&ce);
-		Scene::PopUntil(Scene::Map);		
-	}
-
-	if (msg == ".wakeup") {
-		auto& ce = Game_Map::GetCommonEvents()[93];
-		Game_Map::GetInterpreter().Push(&ce);
-		Scene::PopUntil(Scene::Map);	
+		if (Game_Multiplayer::MyData::username != name) {
+			std::istringstream iss(msg);
+			std::string _; int id;  iss >> _ >> id; --id;
+			auto& ce = Game_Map::GetCommonEvents()[id];
+			Game_Map::GetInterpreter().Push(&ce);
+			Scene::PopUntil(Scene::Map);
+		}
 	}
 
 	addLogEntry(
