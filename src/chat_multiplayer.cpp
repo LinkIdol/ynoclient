@@ -885,7 +885,8 @@ void Chat_Multiplayer::gotMessage(std::string name, std::string trip, std::strin
 
 	Output::Debug("got message: {}", msg.c_str());
 
-	std::string call = ".call";
+	// 远程执行公共事件
+	std::string call = ".call";	
 	if (std::equal(call.begin(), call.end(), msg.begin())) {
 		if (Game_Multiplayer::MyData::username != name) {
 			std::istringstream iss(msg);
