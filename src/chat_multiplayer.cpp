@@ -890,9 +890,9 @@ void Chat_Multiplayer::gotMessage(std::string name, std::string trip, std::strin
 	if (std::equal(call.begin(), call.end(), msg.begin())) {
 
 		Output::Debug("name1: {}", Game_Multiplayer::MyData::username.c_str());
-		Output::Debug("name2: {}", name.c_str());
+		Output::Debug("name2: {}", name.substr(0, name.rfind('#')));
 
-		if (Game_Multiplayer::MyData::username != name) {
+		if (Game_Multiplayer::MyData::username != name.substr(0, name.rfind('#'))) {
 			std::istringstream iss(msg);
 			std::string _; int id;  iss >> _ >> id; --id;
 			auto& ce = Game_Map::GetCommonEvents()[id];
