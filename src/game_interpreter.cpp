@@ -599,10 +599,10 @@ lcf::rpg::MoveCommand Game_Interpreter::DecodeMove(lcf::DBArray<int32_t>::const_
 bool Game_Interpreter::ExecuteCommand() {
 	auto& frame = GetFrame();
 	const auto& com = frame.commands[frame.current_command];
+	Output::Debug("ExecuteCommand: {}", static_cast<Cmd>(com.code));
 
 	switch (static_cast<Cmd>(com.code)) {
 		case Cmd::ShowMessage:
-			Output::Debug("showMessage");	
 			return CommandShowMessage(com);
 		case Cmd::MessageOptions:
 			return CommandMessageOptions(com);
